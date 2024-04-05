@@ -12,7 +12,7 @@ const getNewDecks = (players) => {
 
   for (let i = 0; i < numberOfSets; i++) {
     const selectedCards = [];
-    while (selectedCards.length < 1) {
+    while (selectedCards.length < 10) {
       const randomIndex = Math.floor(Math.random() * cards.length);
       if (!selectedIndexes.has(randomIndex)) {
         selectedIndexes.add(randomIndex);
@@ -29,7 +29,7 @@ const getDeck = (selectedIndexes) => {
 
   if (selectedIndexes) {
     const selectedCards = [];
-    while (selectedCards.length < 1) {
+    while (selectedCards.length < 10) {
       const randomIndex = Math.floor(Math.random() * cards.length);
       if (!selectedIndexes?.has(randomIndex)) {
         selectedIndexes?.add(randomIndex);
