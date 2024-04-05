@@ -3,7 +3,7 @@ import { useGameState } from '../../context/GameStateContext';
 
 const PlayerCard = ({ player }) => {
 
-    const { state, dispatch } = useGameState();
+    const { state } = useGameState();
     const userDetails = state.userDetails || {}
 
     

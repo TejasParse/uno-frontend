@@ -11,7 +11,7 @@ export const colorScheme = {
 export const sendHostMessage = (overrideData) => {
 
 
-    const { roomNo, isHost, userDetails, current_turn, players, winners, direction, selectedIndexes, started, presentCard, ...remaining } = overrideData;
+    const { roomNo, isHost, current_turn, players, winners, direction, selectedIndexes, started, presentCard } = overrideData;
 
     if(isHost) {
       console.log("Sending Message to everyone", overrideData);
@@ -32,7 +32,7 @@ export const sendHostMessage = (overrideData) => {
 
 export const sendPlayerUpdate = (overrideData) => {
 
-  const { roomNo, isHost, userDetails, current_turn, players, winners, direction, selectedIndexes, started, presentCard, ...remaining } = overrideData;
+  const { roomNo, current_turn, players, winners, direction, selectedIndexes, presentCard } = overrideData;
 
   socket.emit("player_message_send", {
     data: {
@@ -113,7 +113,6 @@ export const getInviteLink = (players, roomNo) => {
 
   const urlWithQueryParam = window.location.href + `?inviteQ=${encodeURIComponent(encryptedData)}`;
 
-  const decryptedData = decrypt(encryptedData);
   console.log("Invite URL= ", urlWithQueryParam);
   navigator.clipboard.writeText(urlWithQueryParam)
   // console.log(encryptedData, decryptedData);

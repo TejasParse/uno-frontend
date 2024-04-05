@@ -169,9 +169,6 @@ const gameReducer = (state, action) => {
 
       state.selectedIndexes.add(randomIndex);
 
-      // Retrieve the card at the selected index
-      const selectedCard = cards[randomIndex];
-
       let new_state1 = {
         ...state,
         players,
@@ -392,9 +389,6 @@ const gameReducer = (state, action) => {
 
 
       newIndexes.add(randomIndex12);
-
-      // Retrieve the card at the selected index
-      const selectedCard1 = cards[randomIndex12];
 
       let new_state123 = {
         ...state,

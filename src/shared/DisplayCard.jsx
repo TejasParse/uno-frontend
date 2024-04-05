@@ -1,7 +1,7 @@
 import React from 'react'
 import { colorScheme } from './shared'
 import { useGameState } from '../context/GameStateContext';
-import { sendHostMessage, sendPlayerUpdate, isValid } from './shared';
+import { sendPlayerUpdate, isValid } from './shared';
 
 const cards = require("../context/cards.json");
 
@@ -61,7 +61,7 @@ function DisplayCard({ presentCard, className="", cardNo }) {
 
                         {
                             presentCard?.display_image ? (
-                                <img src={presentCard.display_image} className='w-100' />
+                                <img src={presentCard.display_image} alt={`${presentCard.display_text}`} className='w-100' />
                             ) : (
                                 <div>
                                     {presentCard.display_text}

@@ -5,7 +5,7 @@ import Winners from '../Winners/Winners';
 
 const Opponent = () => {
 
-  const { state, dispatch } = useGameState();
+  const { state } = useGameState();
   // console.log(state?.players, "All the Opponents");
   return (
     <div>

@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Player from "./modules/Player/Player";
 import Opponent from "./modules/Opponents/Opponent";
@@ -8,7 +8,6 @@ import RoomSetup from "./modules/RoomSetup/RoomSetup";
 import { useGameState } from "./context/GameStateContext";
 import socket from "./socket";
 import { sendHostMessage, getInviteLink } from "./shared/shared";
-import Winners from "./modules/Winners/Winners";
 
 function App() {
   const { state, dispatch } = useGameState();

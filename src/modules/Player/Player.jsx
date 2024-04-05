@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useGameState } from '../../context/GameStateContext'
 import { sendHostMessage, sendPlayerUpdate } from '../../shared/shared';
 import DisplayCard from '../../shared/DisplayCard';
 
 const Player = () => {
-
-  const [resetPage, setresetPage] = useState(1);
 
   const { state, dispatch } = useGameState();
 

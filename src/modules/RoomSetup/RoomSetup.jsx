@@ -40,7 +40,7 @@ const RoomSetup = () => {
   const [existingPlayers, setExistingPlayers] = useState([]);
   const [newRoom, setNewRoom] = useState("");
   const [name, setName] = useState("");
-  const { state, dispatch } = useGameState();
+  const { dispatch } = useGameState();
 
   const joinRoom = () => {
     // console.log(room, "Room Number");

@@ -1,13 +1,11 @@
 import React from 'react'
 
 import { useGameState } from '../../context/GameStateContext';
-import { colorScheme } from '../../shared/shared';
-import DisplayCard from '../../shared/DisplayCard';
 import CurrentCard from '../../shared/CurrentCard';
 
 const Stacks = () => {
 
-  const { state, dispatch } = useGameState();
+  const { state } = useGameState();
 
   const presentCard = state.presentCard
 

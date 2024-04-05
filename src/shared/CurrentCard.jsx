@@ -14,7 +14,7 @@ function CurrentCard({ presentCard, className="", cardNo }) {
 
                         {
                             presentCard?.display_image ? (
-                                <img src={presentCard.display_image} className='w-100' />
+                                <img src={presentCard.display_image} alt={`${presentCard.display_text}`} className='w-100' />
                             ) : (
                                 <div>
                                     {presentCard.display_text}
