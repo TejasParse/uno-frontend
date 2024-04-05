@@ -55,7 +55,7 @@ function App() {
       socket.off("host_message_receive");
       socket.off("player_message_receive");
     };
-  }, []);
+  }, [dispatch, state.isHost]);
 
   const onClickInvite = ()=>{
 
