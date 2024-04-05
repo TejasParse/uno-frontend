@@ -111,7 +111,7 @@ const Player = () => {
       </div>
 
       {
-        (state.started && isActivePlayer) ? (
+        (state.started && isActivePlayer && state.players.length >= 2) ? (
           <div>
             <button className='bg-blue-600 p-2 rounded' onClick={pickRandomCard}>Pick Random Card</button>
           </div>
