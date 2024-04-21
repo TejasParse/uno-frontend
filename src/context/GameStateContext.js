@@ -78,7 +78,7 @@ const getNextTurn = (players, dir, current_turn) => {
 }
 
 const initialState = {
-  roomNo: 0,
+  roomNo: -1,
   isHost: 0,
 
   players: [],

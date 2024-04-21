@@ -1,4 +1,4 @@
-import "./App.css";
+
 import { useEffect } from "react";
 
 import Player from "./modules/Player/Player";
@@ -69,15 +69,18 @@ function App() {
       callback: sendHostMessage
     });
 
-
   }
 
   return (
     <div className="">
       <div className="m-3 border-2 border-white p-2">
-        <h1 className="text-center text-3xl pb-3">
-          UNO (Room No: {state?.roomNo}) {(state?.isHost ? ("HOST") : "")}
-        </h1>
+        {
+          state?.roomNo !== -1 && (
+            <h1 className="text-center text-3xl pb-3">
+              UNO (Room No: {state?.roomNo}) {(state?.isHost ? ("HOST") : "")}
+            </h1>
+          )
+        }
         {state.userDetails?.username ? (
           <>
             <div className="grid grid-cols-12">

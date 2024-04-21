@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333; 
+    background-color: #002D62; 
     color: #fff; 
 }
 
@@ -19,3 +19,16 @@ body {
     align-items: center;
     justify-content: center; */
 }
+
+.title-text-font {
+    font-family: "Jersey 25", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .helper-font-1 {
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
