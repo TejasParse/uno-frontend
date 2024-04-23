@@ -11,7 +11,7 @@ export const colorScheme = {
 export const sendHostMessage = (overrideData) => {
 
 
-    const { roomNo, isHost, current_turn, players, winners, direction, selectedIndexes, started, presentCard } = overrideData;
+    const { roomNo, isHost, current_turn, players, winners, direction, selectedIndexes, started, presentCard, messages } = overrideData;
 
     if(isHost) {
       console.log("Sending Message to everyone", overrideData);
@@ -23,7 +23,8 @@ export const sendHostMessage = (overrideData) => {
           started,
           current_turn,
           direction,
-          winners
+          winners,
+          messages
         },
         room: roomNo
       });
@@ -32,7 +33,7 @@ export const sendHostMessage = (overrideData) => {
 
 export const sendPlayerUpdate = (overrideData) => {
 
-  const { roomNo, current_turn, players, winners, direction, selectedIndexes, presentCard } = overrideData;
+  const { roomNo, current_turn, players, winners, direction, selectedIndexes, presentCard, messages } = overrideData;
 
   socket.emit("player_message_send", {
     data: {
@@ -41,7 +42,8 @@ export const sendPlayerUpdate = (overrideData) => {
       presentCard,
       current_turn,
       direction,
-      winners
+      winners,
+      messages
     },
     room: roomNo
   });

@@ -59,15 +59,6 @@ function App() {
     };
   }, [dispatch, state.isHost]);
 
-  useEffect(() => {
-
-    alert("Production Backend Server may be on sleep. If not working please try again in a few mins.")
-
-    return () => {
-    }
-
-  }, [])
-
 
   const onClickInvite = () => {
 
@@ -88,9 +79,49 @@ function App() {
       <div className="m-3 border-2 border-white p-2">
         {
           state?.roomNo !== -1 && (
-            <h1 className="text-center text-3xl pb-3 title-text-font">
-              UNO (Room No: {state?.roomNo}) {(state?.isHost ? ("HOST") : "")}
-            </h1>
+            <div className="flex justify-center gap-5 items-center">
+              <h1 className="text-center text-3xl pb-3 title-text-font">
+                UNO (Room No: {state?.roomNo}) {(state?.isHost ? ("HOST") : "")}
+              </h1>
+              {
+                state.isHost ? (
+                  <>
+                    <motion.button
+                      className="p-2 rounded-md bg-slate-700 text-white m-3"
+                      onClick={onClickInvite}
+                      whileTap={{ scale: 0.95 }}
+                      whileHover={{
+                        scale: 1.05,
+                        // border: "2px solid white"
+                      }}
+                      transition={{
+                        bounceDamping: 1, bounceStiffness: 100,
+                        duration: 0.1
+                      }}
+                    >
+                      Get Invite Link
+                    </motion.button>
+                    <motion.button
+                      className="p-2 rounded-md bg-slate-700 text-white m-3"
+                      onClick={onClickReset}
+                      whileTap={{ scale: 0.95 }}
+                      whileHover={{
+                        scale: 1.05,
+                        // border: "2px solid white"
+                      }}
+                      transition={{
+                        bounceDamping: 1, bounceStiffness: 100,
+                        duration: 0.1
+                      }}
+                    >
+                      Reset Game
+                    </motion.button>
+                  </>
+                ) : (
+                  <></>
+                )
+              }
+            </div>
           )
         }
         {state.userDetails?.username ? (
@@ -110,45 +141,12 @@ function App() {
         ) : (
           <RoomSetup />
         )}
+
+        <div>Note: The backend server is hosted on Render (free subscription) so the server might be on sleep due to inactivity. Therefore, Please wait for a min so server restarts</div>
       </div>
-      {
-        state.isHost ? (
-          <>
-            <motion.button 
-              className="p-2 rounded-md bg-slate-700 text-white m-3" 
-              onClick={onClickInvite}
-              whileTap={{ scale: 0.95 }}
-              whileHover={{
-                scale: 1.05,
-                // border: "2px solid white"
-              }}
-              transition={{
-                bounceDamping: 1, bounceStiffness: 100,
-                duration: 0.1
-              }}
-            >
-              Get Invite Link
-            </motion.button> 
-            <motion.button
-              className="p-2 rounded-md bg-slate-700 text-white m-3"
-              onClick={onClickReset}
-              whileTap={{ scale: 0.95 }}
-              whileHover={{
-                scale: 1.05,
-                // border: "2px solid white"
-              }}
-              transition={{
-                bounceDamping: 1, bounceStiffness: 100,
-                duration: 0.1
-              }}
-            >
-              Reset Game
-            </motion.button>
-          </>
-        ) : (
-          <></>
-        )
-      }
+      <div className="text-center">
+        Made with <span className="text-red-600 text-xl">&hearts;</span> by <a href="https://tejasparse.netlify.app/" target="blank">Tejas Ajay Parse</a>  
+      </div>
     </div>
   );
 }

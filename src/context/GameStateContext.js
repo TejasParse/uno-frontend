@@ -90,7 +90,9 @@ const initialState = {
 
   current_turn: 0,
   direction: 0,
-  winners: []
+  winners: [],
+
+  messages: []
 };
 
 // Define the reducer function to handle state updates
@@ -176,7 +178,15 @@ const gameReducer = (state, action) => {
         selectedIndexes,
         started: 1,
         current_turn: 0,
-        direction: 0
+        direction: 0,
+        messages: [
+          ...state.messages,
+          {
+            sender: state.userDetails.username,
+            message: `${state.userDetails.username} Started the Game!`,
+            type: "command"
+          }
+        ]
       };
 
       action.callback(new_state1);
@@ -209,7 +219,7 @@ const gameReducer = (state, action) => {
 
       let newCurrentTurn = getNextTurn(state.players, dir, state.current_turn)
       let nextTurn = newCurrentTurn
-      
+
 
       let newState = {
         ...state,
@@ -224,7 +234,15 @@ const gameReducer = (state, action) => {
           ...state.players.slice(playerIndex + 1)
         ],
         current_turn: newCurrentTurn,
-        direction: dir
+        direction: dir,
+        messages: [
+          ...state.messages,
+          {
+            sender: state.userDetails.username,
+            message: `${state.userDetails.username} played ${newPlayedCard.card_name}`,
+            type: "command"
+          }
+        ]
       };
 
 
@@ -250,7 +268,7 @@ const gameReducer = (state, action) => {
           ]
         };
         console.log(newState, "New State?", newState?.players[nextTurn], "New PLayer", nextTurn);
-      } 
+      }
 
       if (newPlayerCards.length === 0) {
         console.log("Game Over");
@@ -262,7 +280,7 @@ const gameReducer = (state, action) => {
             ...state.players.slice(0, playerIndex),
             ...state.players.slice(playerIndex + 1)
           ],
-          current_turn: newState.current_turn, 
+          current_turn: newState.current_turn,
           direction: dir,
           winners: [
             ...state.winners,
@@ -288,7 +306,7 @@ const gameReducer = (state, action) => {
         }
       }
 
-      if(newPlayedCard.display_text === "Skip") {
+      if (newPlayedCard.display_text === "Skip") {
         newState.current_turn = getNextTurn(newState.players, newState.direction, newState.current_turn);
       }
 
@@ -364,7 +382,15 @@ const gameReducer = (state, action) => {
           ...state.players.slice(playerIndex1 + 1)
         ],
         current_turn: newCurrentTurn1,
-        direction: dir1
+        direction: dir1,
+        messages: [
+          ...state.messages,
+          {
+            sender: state.userDetails.username,
+            message: `${state.userDetails.username} picked random card`,
+            type: "command"
+          }
+        ]
       };
 
       action.callback(newState1);
@@ -398,12 +424,40 @@ const gameReducer = (state, action) => {
         started: 1,
         current_turn: 0,
         direction: 0,
-        winners: []
+        winners: [],
+        messages: [
+          ...state.messages,
+          {
+            sender: state.userDetails.username,
+            message: `${state.userDetails.username} initiated a game reset`,
+            type: "command"
+          }
+        ]
       };
 
       action.callback(new_state123);
 
       return new_state123
+
+
+    case "send_message":
+
+      let new_state2 = {
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            sender: state.userDetails.username,
+            message: action.payload.message,
+            type: action.payload.type
+          }
+        ]
+      }
+
+      action.callback(new_state2);
+
+
+      return new_state2;
 
     default:
       return state;
