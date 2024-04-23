@@ -7,7 +7,7 @@ import Stacks from "./modules/Stacks/Stacks";
 import RoomSetup from "./modules/RoomSetup/RoomSetup";
 import { useGameState } from "./context/GameStateContext";
 import socket from "./socket";
-import { sendHostMessage, getInviteLink } from "./shared/shared";
+import { sendHostMessage } from "./shared/shared";
 
 import { motion } from "framer-motion";
 
