@@ -7,7 +7,7 @@ import Stacks from "./modules/Stacks/Stacks";
 import RoomSetup from "./modules/RoomSetup/RoomSetup";
 import { useGameState } from "./context/GameStateContext";
 import socket from "./socket";
-import { sendHostMessage } from "./shared/shared";
+import { sendHostMessage, getInviteLink } from "./shared/shared";
 
 import { motion } from "framer-motion";
 
@@ -61,16 +61,19 @@ function App() {
 
   useEffect(() => {
 
-    alert("Production Backend Server may be shut down. If not working please try again in a few mins if it doesn't work")
-  
+    alert("Production Backend Server may be on sleep. If not working please try again in a few mins.")
+
+    return () => {
+    }
+
   }, [])
-  
 
-  // const onClickInvite = () => {
 
-  //   getInviteLink(state.players, state.roomNo);
+  const onClickInvite = () => {
 
-  // }
+    getInviteLink(state.players, state.roomNo);
+
+  }
 
   const onClickReset = () => {
     dispatch({
@@ -111,7 +114,21 @@ function App() {
       {
         state.isHost ? (
           <>
-            {/* <button className="p-2 rounded-md bg-slate-700 text-white m-3" onClick={onClickInvite}>Get Invite Link</button> */}
+            <motion.button 
+              className="p-2 rounded-md bg-slate-700 text-white m-3" 
+              onClick={onClickInvite}
+              whileTap={{ scale: 0.95 }}
+              whileHover={{
+                scale: 1.05,
+                // border: "2px solid white"
+              }}
+              transition={{
+                bounceDamping: 1, bounceStiffness: 100,
+                duration: 0.1
+              }}
+            >
+              Get Invite Link
+            </motion.button> 
             <motion.button
               className="p-2 rounded-md bg-slate-700 text-white m-3"
               onClick={onClickReset}

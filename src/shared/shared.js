@@ -107,7 +107,9 @@ export const getInviteLink = (players, roomNo) => {
 
   playerTemp += `${separator}${roomNo}`
 
-  navigator.clipboard.writeText(playerTemp)
+  // navigator.clipboard.writeText(playerTemp)
+
+  console.log(playerTemp, "What id happening");
 
   const encryptedData = encrypt(playerTemp);
 
@@ -115,7 +117,7 @@ export const getInviteLink = (players, roomNo) => {
 
   console.log("Invite URL= ", urlWithQueryParam);
   navigator.clipboard.writeText(urlWithQueryParam)
-  // console.log(encryptedData, decryptedData);
+  console.log(encryptedData, decrypt(encryptedData));
   // console.log(decryptedData.split(separator));
 
 }
