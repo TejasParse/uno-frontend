@@ -1,27 +1,45 @@
 import React from 'react'
 import { useGameState } from '../../context/GameStateContext';
+import { motion } from 'framer-motion';
 
 const PlayerCard = ({ player }) => {
 
-    const { state } = useGameState();
-    const userDetails = state.userDetails || {}
+  const { state } = useGameState();
+  const userDetails = state.userDetails || {}
 
-    
-    const currentPlayer = state.players[state.current_turn] || {}
 
-    // console.log(currentPlayer, "Current Turn");
+  const currentPlayer = state.players[state.current_turn] || {}
+
+  const isUser = userDetails.username === player.username
+  const isActive = currentPlayer.username === player.username
+  // console.log(currentPlayer, "Current Turn");
 
   return (
     <div className='col-span-3 p-3'>
-        <div className={`border-2 border-${userDetails.username===player.username ? "blue-400" : "white"} p-2`}>
-            <div className='flex flex-row justify-between'>
-              <div className=''>{player.username} {currentPlayer.username===player.username ? "*" : ""}</div>
-              <div>{player.cards?.length}</div>
-            </div>
-            
+      <motion.div
+        className={`p-2 rounded-lg`}
+        style={{
+          backgroundColor: isUser ? "#7c3aed" : "#2563eb",
+          border: isActive ? "2px solid white" : ""
+        }}
+        transition={{
+          duration: 3,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatDelay: 1
+        }}
+        animate={{
+          scale: isActive ? [0.98,1.02, 0.98] : [],
+        }}
+      >
+        <div className='flex flex-row justify-between'>
+          <div className=''>{player.username}</div>
+          <div>{player.cards?.length}</div>
         </div>
-        
-        
+
+      </motion.div>
+
+
     </div>
   )
 }

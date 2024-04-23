@@ -2,6 +2,7 @@ import React from 'react'
 import { useGameState } from '../../context/GameStateContext'
 import { sendHostMessage, sendPlayerUpdate } from '../../shared/shared';
 import DisplayCard from '../../shared/DisplayCard';
+import { motion, AnimatePresence } from "framer-motion"
 
 const Player = () => {
 
@@ -16,15 +17,6 @@ const Player = () => {
       callback: sendHostMessage
     });
   }
-
-  const pickRandomCard = () => {
-    // console.log("Clicked Twice?");
-    dispatch({
-      type: "random_card",
-      callback: sendPlayerUpdate
-    });
-  }
-
 
   const currentPlayer = state.players[state.current_turn]
 
@@ -51,10 +43,44 @@ const Player = () => {
     <div>
       {
         isHost === 1 && !state.started && (
-          <button className='bg-blue-600 p-2 rounded' onClick={startGame}>Start Game</button>
+          <motion.button
+            className='bg-blue-600 p-2 rounded mb-5 helper-font-1' onClick={startGame}
+            whileTap={{ scale: 0.95 }}
+            whileHover={{
+              scale: 1.05,
+              border: "2px solid white"
+            }}
+            transition={{
+              bounceDamping: 1, bounceStiffness: 100,
+              duration: 0.1
+            }}
+          >
+            Start Game
+          </motion.button>
+        )
+      }
+      {
+        isWinner ? (
+          <div className='flex flex-row justify-start'>
+            <div className='bg-green-600 text-white p-3 rounded helper-font-2'>Congrats! You have completed your deck. Check the Leaderboard</div>
+          </div>
+        ) : (
+          <div className='flex flex-row justify-start'>
+            <div className='bg-purple-600 text-white p-3 rounded-lg helper-font-2'>
+              {
+                isActivePlayer ? (
+                  <>{state.players.length !== 1 ? "Your Turn" : "Please Add More Players"}</>
+                ) : (
+                  <>{state.started ? "Please Wait for your turn" : "Please tell your host to start the game"}</>
+                )
+              }
+            </div>
+
+          </div>
         )
       }
       <div className='mt-3 grid grid-cols-12 gap-3 mb-3'>
+
         {
           (state.started && state.players.length !== 1) ? (
             <>
@@ -68,9 +94,9 @@ const Player = () => {
             <></>
           )
         }
-        {
 
-        }
+
+
 
       </div>
 
@@ -84,21 +110,7 @@ const Player = () => {
             </div>
           )
         } */}
-        {
-          isWinner ? (
-            <div>Congrats! You have completed your deck. Check the Leaderboard</div>
-          ) : (
-            <div>
-              {
-                isActivePlayer ? (
-                  <>{ state.players.length !== 1 ? "Your Turn" : "" }</>
-                ) : (
-                  <>{state.started ? "Please Wait for your turn" : "Please tell your host to start the game"}</>
-                )
-              }
-            </div>
-          )
-        }
+
         {
           (state.started && state.players.length === 1) ? (
             <div className='mt-3'>The Game Has Ended! Please ask your host to restart the game</div>
@@ -107,17 +119,6 @@ const Player = () => {
           )
         }
       </div>
-
-      {
-        (state.started && isActivePlayer && state.players.length >= 2) ? (
-          <div>
-            <button className='bg-blue-600 p-2 rounded' onClick={pickRandomCard}>Pick Random Card</button>
-          </div>
-        ) : (
-          <div></div>
-        )
-      }
-
 
 
     </div>

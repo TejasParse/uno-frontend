@@ -9,6 +9,8 @@ import { useGameState } from "./context/GameStateContext";
 import socket from "./socket";
 import { sendHostMessage, getInviteLink } from "./shared/shared";
 
+import { motion } from "framer-motion";
+
 function App() {
   const { state, dispatch } = useGameState();
 
@@ -57,13 +59,13 @@ function App() {
     };
   }, [dispatch, state.isHost]);
 
-  const onClickInvite = ()=>{
+  const onClickInvite = () => {
 
     getInviteLink(state.players, state.roomNo);
 
   }
 
-  const onClickReset = ()=>{
+  const onClickReset = () => {
     dispatch({
       type: "reset_game",
       callback: sendHostMessage
@@ -76,7 +78,7 @@ function App() {
       <div className="m-3 border-2 border-white p-2">
         {
           state?.roomNo !== -1 && (
-            <h1 className="text-center text-3xl pb-3">
+            <h1 className="text-center text-3xl pb-3 title-text-font">
               UNO (Room No: {state?.roomNo}) {(state?.isHost ? ("HOST") : "")}
             </h1>
           )
@@ -84,10 +86,10 @@ function App() {
         {state.userDetails?.username ? (
           <>
             <div className="grid grid-cols-12">
-              <div className="col-span-6 sm:col-span-8 md:col-span-10 xl:col-span-10 border-2 border-white m-2 p-2">
+              <div className="col-span-6 sm:col-span-8 md:col-span-8 xl:col-span-9 border-2 border-white m-2 p-2">
                 <Opponent />
               </div>
-              <div className="col-span-6 sm:col-span-4 md:col-span-2 xl:col-span-2 border-2 border-white m-2 p-2">
+              <div className="col-span-6 sm:col-span-4 md:col-span-4 xl:col-span-3 border-2 border-white m-2 p-2">
                 <Stacks />
               </div>
             </div>
@@ -102,8 +104,22 @@ function App() {
       {
         state.isHost ? (
           <>
-            <button className="p-2 rounded-md bg-slate-700 text-white m-3" onClick={onClickInvite}>Get Invite Link</button>
-            <button className="p-2 rounded-md bg-slate-700 text-white m-3" onClick={onClickReset}>Reset Game</button>
+            {/* <button className="p-2 rounded-md bg-slate-700 text-white m-3" onClick={onClickInvite}>Get Invite Link</button> */}
+            <motion.button
+              className="p-2 rounded-md bg-slate-700 text-white m-3"
+              onClick={onClickReset}
+              whileTap={{ scale: 0.95 }}
+              whileHover={{
+                scale: 1.05,
+                // border: "2px solid white"
+              }}
+              transition={{
+                bounceDamping: 1, bounceStiffness: 100,
+                duration: 0.1
+              }}
+            >
+              Reset Game
+            </motion.button>
           </>
         ) : (
           <></>
