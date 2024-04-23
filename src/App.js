@@ -59,6 +59,13 @@ function App() {
     };
   }, [dispatch, state.isHost]);
 
+  useEffect(() => {
+
+    alert("Production Backend Server may be shut down. If not working please try again in a few mins if it doesn't work")
+  
+  }, [])
+  
+
   // const onClickInvite = () => {
 
   //   getInviteLink(state.players, state.roomNo);
