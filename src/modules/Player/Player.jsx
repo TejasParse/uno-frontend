@@ -1,8 +1,8 @@
 import React from 'react'
 import { useGameState } from '../../context/GameStateContext'
-import { sendHostMessage, sendPlayerUpdate } from '../../shared/shared';
+import { sendHostMessage } from '../../shared/shared';
 import DisplayCard from '../../shared/DisplayCard';
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 const Player = () => {
 

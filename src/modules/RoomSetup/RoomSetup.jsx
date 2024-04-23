@@ -113,7 +113,7 @@ const RoomSetup = () => {
     <div>
       <div className="grid grid-cols-12">
         <div className="col-span-4 flex justify-center p-20">
-          <img src="/uno.png" className="w-50" />
+          <img src="/uno.png" className="w-50" alt="Project Logo" />
         </div>
         <div className="col-span-8 flex flex-col items-center justify-center gap-10">
 
@@ -147,7 +147,7 @@ const RoomSetup = () => {
               }}
               className={`p-3 helper-font-1 bg-black rounded flex justify-between items-center gap-4 `}
             >
-              <div><img src="/create.png" width={"35px"} /></div>
+              <div><img src="/create.png" width={"35px"} alt="Create Icon" /></div>
               <div className="text-xl">Create Room</div>
             </motion.button>
             <motion.button
@@ -166,7 +166,7 @@ const RoomSetup = () => {
               }}
               className="p-3 helper-font-1 bg-black rounded flex justify-between items-center gap-4"
             >
-              <div><img src="/join.png" width={"35px"} /></div>
+              <div><img src="/join.png" width={"35px"} alt="Join Icon" /></div>
               <div className="text-xl">Join Room</div>
             </motion.button>
           </div>

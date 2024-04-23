@@ -59,11 +59,11 @@ function App() {
     };
   }, [dispatch, state.isHost]);
 
-  const onClickInvite = () => {
+  // const onClickInvite = () => {
 
-    getInviteLink(state.players, state.roomNo);
+  //   getInviteLink(state.players, state.roomNo);
 
-  }
+  // }
 
   const onClickReset = () => {
     dispatch({
