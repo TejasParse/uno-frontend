@@ -86,20 +86,23 @@ function App() {
 
   }
 
-  const checkServer = async () => {
+  const checkServer = useCallback(
+    async () => {
 
-    fetch(process.env.REACT_APP_API_URL)
-      .then((res)=> res.json())
-      .then(res=> {
-        console.log(res);
-        setserverStatus(true)
-      })
-      .catch(err=> {
-        // console.log(err, "What the error");
-        setTimeout(checkServer, 4000);
-      })
-
-  }
+      fetch(process.env.REACT_APP_API_URL)
+        .then((res)=> res.json())
+        .then(res=> {
+          console.log(res);
+          setserverStatus(true)
+        })
+        .catch(err=> {
+          // console.log(err, "What the error");
+          setTimeout(checkServer, 4000);
+        })
+  
+    },
+    [],
+  )
 
   useEffect(() => {
     
