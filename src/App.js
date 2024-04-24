@@ -105,7 +105,7 @@ function App() {
     
     checkServer();
     
-  }, [serverStatus])
+  }, [serverStatus, checkServer])
   
 
   return (
