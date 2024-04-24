@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Player from "./modules/Player/Player";
 import Opponent from "./modules/Opponents/Opponent";
@@ -13,6 +13,8 @@ import { motion } from "framer-motion";
 
 function App() {
   const { state, dispatch } = useGameState();
+
+  const [serverStatus, setserverStatus] = useState(false);
 
   useEffect(() => {
 
@@ -52,6 +54,16 @@ function App() {
 
     });
 
+    socket.on("connect_error", (error) => {
+      setserverStatus(false);
+    });
+    
+    // Event listener for disconnection
+    socket.on("disconnect", (reason) => {
+      setserverStatus(false);
+    });
+    
+
     return () => {
       socket.off("opponent_joined");
       socket.off("host_message_receive");
@@ -73,6 +85,28 @@ function App() {
     });
 
   }
+
+  const checkServer = async () => {
+
+    fetch(process.env.REACT_APP_API_URL)
+      .then((res)=> res.json())
+      .then(res=> {
+        console.log(res);
+        setserverStatus(true)
+      })
+      .catch(err=> {
+        // console.log(err, "What the error");
+        setTimeout(checkServer, 4000);
+      })
+
+  }
+
+  useEffect(() => {
+    
+    checkServer();
+    
+  }, [serverStatus])
+  
 
   return (
     <div className="">
@@ -142,10 +176,33 @@ function App() {
           <RoomSetup />
         )}
 
-        <div>Note: The backend server is hosted on Render (free subscription) so the server might be on sleep due to inactivity. Therefore, Please wait for a min so server restarts</div>
+        <div className="mb-5">Note: The backend server is hosted on Render (free subscription) so the server might be on sleep due to inactivity. Therefore, Please wait for a min so server restarts</div>
+        <div>
+          <motion.button
+            style={{ backgroundColor: !serverStatus ? "red" : "green" }}
+            className="p-2 rounded"
+            whileTap={{ scale: 0.95 }}
+            whileHover={{
+              scale: 1.05,
+            }}
+
+            transition={{
+              duration: 3,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatDelay: 1
+            }}
+            animate={{
+              scale: !serverStatus ?  [0.93,1.07, 0.93] : [],
+            }}
+
+          >
+            Server Status
+          </motion.button>
+        </div>
       </div>
       <div className="text-center">
-        Made with <span className="text-red-600 text-xl">&hearts;</span> by <a href="https://tejasparse.netlify.app/" target="blank">Tejas Ajay Parse</a>  
+        Made with <span className="text-red-600 text-xl">&hearts;</span> by <a href="https://tejasparse.netlify.app/" target="blank">Tejas Ajay Parse</a>
       </div>
     </div>
   );
