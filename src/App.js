@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Player from "./modules/Player/Player";
 import Opponent from "./modules/Opponents/Opponent";
