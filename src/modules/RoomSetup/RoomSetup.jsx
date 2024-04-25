@@ -8,7 +8,7 @@ import { decrypt } from "../../shared/shared";
 
 import { motion } from "framer-motion"
 
-const RoomSetup = () => {
+const RoomSetup = ({ serverStatus }) => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -47,6 +47,11 @@ const RoomSetup = () => {
   const { dispatch } = useGameState();
 
   const joinRoom = () => {
+
+    if(!serverStatus) {
+      alert("Please Wait a min until server is live")
+      return;
+    }
     // console.log(room, "Room Number");
     if (room === "") {
       alert("Enter a room No");
@@ -78,6 +83,10 @@ const RoomSetup = () => {
   };
 
   const createRoom = () => {
+    if(!serverStatus) {
+      alert("Please Wait a min until server is live")
+      return;
+    }
     // console.log(newRoom, "Room Number");
     if (newRoom === "") {
       alert("Enter a room No");

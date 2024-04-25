@@ -176,7 +176,7 @@ function App() {
             </div>
           </>
         ) : (
-          <RoomSetup />
+          <RoomSetup serverStatus={serverStatus} />
         )}
 
         <div className="mb-5">Note: The backend server is hosted on Render (free subscription) so the server might be on sleep due to inactivity. Therefore, Please wait for a min so server restarts</div>
