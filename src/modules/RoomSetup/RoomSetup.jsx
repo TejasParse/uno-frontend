@@ -32,13 +32,7 @@ const RoomSetup = ({ serverStatus }) => {
       setExistingPlayers(players);
       setmenuOpen("join")
     }
-
-
-
   }, [])
-
-
-
 
   const [room, setRoom] = useState("");
   const [existingPlayers, setExistingPlayers] = useState([]);
@@ -48,7 +42,7 @@ const RoomSetup = ({ serverStatus }) => {
 
   const joinRoom = () => {
 
-    if(!serverStatus) {
+    if (!serverStatus) {
       alert("Please Wait a min until server is live")
       return;
     }
@@ -62,28 +56,64 @@ const RoomSetup = ({ serverStatus }) => {
       return;
     }
 
-    if (existingPlayers.includes(name)) {
-      alert("Player with username exists");
-      return;
-    }
-
     socket.emit("join_room", {
       roomNo: room,
       username: name,
     });
 
-    dispatch({
-      type: "player_joined",
-      payload: {
-        username: name,
-        roomNo: room
-      }
-    });
+    // dispatch({
+    //   type: "player_joined",
+    //   payload: {
+    //     username: name,
+    //     roomNo: room
+    //   }
+    // });
 
   };
 
+  useEffect(() => {
+    socket.on("create_room_success", (data) => {
+
+      console.log(data, "Room created in backend");
+
+      dispatch({
+        type: "create_room_success",
+        payload: {
+          game: data.game,
+          userDetails: data.userDetails,
+        },
+      });
+
+      dispatch({
+        type: "set_host"
+      });
+
+    })
+
+    socket.on("join_room_success", (data) => {
+
+      console.log(data, "Room joined in backend");
+
+      dispatch({
+        type: "join_room_success",
+        payload: {
+          game: data.game,
+          userDetails: data.userDetails,
+        },
+      });
+
+
+    })
+
+    return () => {
+      socket.off("create_room_success");
+      socket.off("join_room_success");
+    }
+  }, [dispatch])
+
+
   const createRoom = () => {
-    if(!serverStatus) {
+    if (!serverStatus) {
       alert("Please Wait a min until server is live")
       return;
     }
@@ -97,22 +127,11 @@ const RoomSetup = ({ serverStatus }) => {
       return;
     }
 
-    socket.emit("join_room", {
+    socket.emit("create_room", {
       roomNo: newRoom,
       username: name,
     });
 
-    dispatch({
-      type: "player_joined",
-      payload: {
-        username: name,
-        roomNo: newRoom,
-      },
-    });
-
-    dispatch({
-      type: "set_host"
-    });
   }
 
 

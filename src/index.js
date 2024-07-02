@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./App.css";
 import { GameStateProvider } from './context/GameStateContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GameStateProvider>
       <App />
+      <ToastContainer />
     </GameStateProvider>
   </React.StrictMode>
 );
