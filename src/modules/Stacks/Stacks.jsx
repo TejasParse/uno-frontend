@@ -4,6 +4,7 @@ import { useGameState } from '../../context/GameStateContext';
 import CurrentCard from '../../shared/CurrentCard';
 import { motion } from "framer-motion"
 import { sendPlayerUpdate } from '../../shared/shared';
+import socket from '../../socket';
 
 const Stacks = () => {
 
@@ -26,11 +27,16 @@ const Stacks = () => {
       return;
     }
 
+    socket.emit("random_card", {
+      roomNo: state.roomNo,
+      username: state.userDetails.username
+    })
+
     // console.log("Clicked Twice?");
-    dispatch({
-      type: "random_card",
-      callback: sendPlayerUpdate
-    });
+    // dispatch({
+    //   type: "random_card",
+    //   callback: sendPlayerUpdate
+    // });
   }
 
   
