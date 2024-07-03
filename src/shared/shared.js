@@ -102,24 +102,14 @@ export function decrypt(encryptedText) {
   return decryptedText;
 }
 
-export const getInviteLink = (players, roomNo) => {
+export const getInviteLink = (roomNo) => {
   const separator = process.env.REACT_APP_SECRET_KEY;
 
-  let playerTemp = players.map(elm=> elm.username).join(separator);
-
-  playerTemp += `${separator}${roomNo}`
-
-  // navigator.clipboard.writeText(playerTemp)
-
-  console.log(playerTemp, "What id happening");
-
-  const encryptedData = encrypt(playerTemp);
-
-  const urlWithQueryParam = window.location.href + `?inviteQ=${encodeURIComponent(encryptedData)}`;
+  const urlWithQueryParam = window.location.href + `?inviteQ=${roomNo}`;
 
   console.log("Invite URL= ", urlWithQueryParam);
   navigator.clipboard.writeText(urlWithQueryParam)
-  console.log(encryptedData, decrypt(encryptedData));
+  // console.log(encryptedData, decrypt(encryptedData));
   // console.log(decryptedData.split(separator));
 
 }

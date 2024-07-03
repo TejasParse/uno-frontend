@@ -19,22 +19,6 @@ function App() {
 
 	useEffect(() => {
 
-		socket.on("opponent_joined", (data) => {
-
-			// console.log("Return again?", data);
-
-			dispatch({
-				type: data.dispatch_type,
-				payload: {
-					username: data.username,
-					id: data.id
-				},
-				callback: sendHostMessage
-			});
-
-
-		});
-
 		socket.on("host_message_receive", (data) => {
 			console.log("Update Message Received from host", data);
 			if (!state.isHost) {
@@ -55,13 +39,15 @@ function App() {
 
 		});
 
+
 		socket.on("UPDATE", (data) => {
 			console.log("Update this data from admin", data);
 			// toast("Admin Update")
 			dispatch({
 				type: "UPDATE",
 				payload: {
-					game: data.game
+					game: data.game,
+					userDetails: data.userDetails
 				}
 			})
 		})
@@ -104,7 +90,7 @@ function App() {
 
 	const onClickInvite = () => {
 
-		getInviteLink(state.players, state.roomNo);
+		getInviteLink(state.roomNo);
 
 	}
 
@@ -146,30 +132,31 @@ function App() {
 			<div className="m-3 border-2 border-white p-2">
 				{
 					state?.roomNo !== -1 && (
-						<div className="flex justify-center gap-5 items-center">
-							<h1 className="text-center text-3xl pb-3 title-text-font">
+						<div className="flex justify-center gap-5 items-center py-2">
+							<h1 className="text-center text-3xl title-text-font">
 								UNO (Room No: {state?.roomNo}) {(state?.isHost ? ("HOST") : "")}
 							</h1>
+							<motion.button
+								className="p-2 rounded-md bg-slate-700 text-white mx-3"
+								onClick={onClickInvite}
+								whileTap={{ scale: 0.95 }}
+								whileHover={{
+									scale: 1.05,
+									// border: "2px solid white"
+								}}
+								transition={{
+									bounceDamping: 1, bounceStiffness: 100,
+									duration: 0.1
+								}}
+							>
+								Get Invite Link
+							</motion.button>
 							{
 								state.isHost ? (
 									<>
+
 										<motion.button
-											className="p-2 rounded-md bg-slate-700 text-white m-3"
-											onClick={onClickInvite}
-											whileTap={{ scale: 0.95 }}
-											whileHover={{
-												scale: 1.05,
-												// border: "2px solid white"
-											}}
-											transition={{
-												bounceDamping: 1, bounceStiffness: 100,
-												duration: 0.1
-											}}
-										>
-											Get Invite Link
-										</motion.button>
-										<motion.button
-											className="p-2 rounded-md bg-slate-700 text-white m-3"
+											className="p-2 rounded-md bg-slate-700 text-white mx-3"
 											onClick={onClickReset}
 											whileTap={{ scale: 0.95 }}
 											whileHover={{

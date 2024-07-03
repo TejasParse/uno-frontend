@@ -124,7 +124,7 @@ const gameReducer = (state, action) => {
 
 			let newState3 = {
 				...action.payload.game,
-				userDetails: state.userDetails,
+				userDetails: action.payload.userDetails,
 				isHost: state.isHost,
 			};
 			// console.log(newState3, "This is new State");

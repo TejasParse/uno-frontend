@@ -17,20 +17,8 @@ const RoomSetup = ({ serverStatus }) => {
     const paramValue = urlParams.get('inviteQ');
 
     if (paramValue) {
-      const separator = process.env.REACT_APP_SECRET_KEY
-
-      const decryptedText = decrypt(paramValue);
-
-      const data = decryptedText.split(separator);
-
-      console.log(data, "We got this from URL");
-      const players = data.slice(0, -1);
-      const roomNo1 = data[data.length - 1];
-      console.log("Room= ", roomNo1);
-      setRoom(roomNo1)
-      console.log("Players= ", players);
-      setExistingPlayers(players);
       setmenuOpen("join")
+      setRoom(paramValue)
     }
   }, [])
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { useGameState } from '../../context/GameStateContext'
 import { sendPlayerUpdate } from '../../shared/shared';
+import socket from '../../socket';
 
 const Chatbox = () => {
 
@@ -15,16 +16,14 @@ const Chatbox = () => {
 
             event.preventDefault();
 
-            console.log("Sending Message", message);
+            console.log("Sending Message", message, state);
 
-            dispatch({
-                type: "send_message",
-                payload: {
-                    message,
-                    type: "chat"
-                },
-                callback: sendPlayerUpdate
-            });
+            socket.emit("message_send", {
+                roomNo: state.roomNo,
+                message,
+                type: "chat",
+                sender: state.userDetails.username
+            })
 
             setMessage("");
         }
