@@ -4,6 +4,7 @@ import { sendHostMessage } from '../../shared/shared';
 import DisplayCard from '../../shared/DisplayCard';
 import { motion } from "framer-motion"
 import Chatbox from './Chatbox';
+import socket from '../../socket';
 
 const Player = () => {
 
@@ -13,10 +14,14 @@ const Player = () => {
   const isHost = state.isHost;
 
   const startGame = () => {
-    dispatch({
-      type: "start_game",
-      callback: sendHostMessage
-    });
+
+    socket.emit("start_game", {
+      roomNo: state.roomNo
+    })
+    // dispatch({
+    //   type: "start_game",
+    //   callback: sendHostMessage
+    // });
   }
 
   const currentPlayer = state.players[state.current_turn]
@@ -27,8 +32,7 @@ const Player = () => {
 
   const cards1 = require("../../context/cards.json");
 
-  const users = state.players.filter(elmt => elmt.username === userDetails.username)
-  const userDet = users[0];
+  const userDet = state.userDetails;
 
   const winners = state.winners || [];
   const isWinner = winners.some(winner => winner.username === userDetails.username);

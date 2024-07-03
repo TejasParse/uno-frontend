@@ -34,7 +34,7 @@ const PlayerCard = ({ player }) => {
       >
         <div className='flex flex-row justify-between'>
           <div className=''>{player.username}</div>
-          <div>{player.cards?.length}</div>
+          <div>{player.cardsCount}</div>
         </div>
 
       </motion.div>
