@@ -6,14 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import "./App.css";
 import { GameStateProvider } from './context/GameStateContext';
 import { ToastContainer } from 'react-toastify';
+import { SocketProvider } from './context/SocketContext';
 import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GameStateProvider>
-      <App />
-      <ToastContainer />
+      <SocketProvider>
+        <App />
+        <ToastContainer />
+      </SocketProvider>
     </GameStateProvider>
   </React.StrictMode>
 );

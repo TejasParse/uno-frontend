@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
 import { useGameState } from '../../context/GameStateContext'
-import { sendPlayerUpdate } from '../../shared/shared';
-import socket from '../../socket';
+
+import { useSocket } from '../../context/SocketContext';
 
 const Chatbox = () => {
+    const socket = useSocket();
 
     const { state, dispatch } = useGameState();
 
@@ -18,7 +19,7 @@ const Chatbox = () => {
 
             console.log("Sending Message", message, state);
 
-            socket.emit("message_send", {
+            socket?.emit("message_send", {
                 roomNo: state.roomNo,
                 message,
                 type: "chat",

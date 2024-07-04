@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 
 import { useGameState } from "../../context/GameStateContext";
 
-import socket from "../../socket";
+import { useSocket } from "../../context/SocketContext";
 
 import { decrypt } from "../../shared/shared";
 
 import { motion } from "framer-motion"
 
 const RoomSetup = ({ serverStatus }) => {
+
+  const socket = useSocket();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -44,7 +46,7 @@ const RoomSetup = ({ serverStatus }) => {
       return;
     }
 
-    socket.emit("join_room", {
+    socket?.emit("join_room", {
       roomNo: room,
       username: name,
     });
@@ -60,7 +62,7 @@ const RoomSetup = ({ serverStatus }) => {
   };
 
   useEffect(() => {
-    socket.on("create_room_success", (data) => {
+    socket?.on("create_room_success", (data) => {
 
       console.log(data, "Room created in backend");
 
@@ -78,7 +80,7 @@ const RoomSetup = ({ serverStatus }) => {
 
     })
 
-    socket.on("join_room_success", (data) => {
+    socket?.on("join_room_success", (data) => {
 
       console.log(data, "Room joined in backend");
 
@@ -94,10 +96,10 @@ const RoomSetup = ({ serverStatus }) => {
     })
 
     return () => {
-      socket.off("create_room_success");
-      socket.off("join_room_success");
+      socket?.off("create_room_success");
+      socket?.off("join_room_success");
     }
-  }, [dispatch])
+  }, [dispatch, socket])
 
 
   const createRoom = () => {
@@ -115,7 +117,7 @@ const RoomSetup = ({ serverStatus }) => {
       return;
     }
 
-    socket.emit("create_room", {
+    socket?.emit("create_room", {
       roomNo: newRoom,
       username: name,
     });

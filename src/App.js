@@ -6,20 +6,24 @@ import Opponent from "./modules/Opponents/Opponent";
 import Stacks from "./modules/Stacks/Stacks";
 import RoomSetup from "./modules/RoomSetup/RoomSetup";
 import { useGameState } from "./context/GameStateContext";
-import socket from "./socket";
-import { sendHostMessage, getInviteLink } from "./shared/shared";
+
+import { useSocket } from "./context/SocketContext";
+import { getInviteLink } from "./shared/shared";
 import { toast } from "react-toastify";
 
 import { motion } from "framer-motion";
 
 function App() {
+
+	const socket = useSocket();
+
 	const { state, dispatch } = useGameState();
 
 	const [serverStatus, setserverStatus] = useState(false);
 
 	useEffect(() => {
 
-		socket.on("host_message_receive", (data) => {
+		socket?.on("host_message_receive", (data) => {
 			console.log("Update Message Received from host", data);
 			if (!state.isHost) {
 				dispatch({
@@ -29,7 +33,7 @@ function App() {
 			}
 		});
 
-		socket.on("player_message_receive", (data) => {
+		socket?.on("player_message_receive", (data) => {
 			console.log("Update Message Received from Player", data);
 
 			dispatch({
@@ -40,7 +44,7 @@ function App() {
 		});
 
 
-		socket.on("UPDATE", (data) => {
+		socket?.on("UPDATE", (data) => {
 			console.log("Update this data from admin", data);
 			// toast("Admin Update")
 			dispatch({
@@ -52,7 +56,7 @@ function App() {
 			})
 		})
 
-		socket.on("custom_error", (data) => {
+		socket?.on("custom_error", (data) => {
 			// console.log(data, "We've got this data");
 			toast.error(data.message, {
 				position: "top-right",
@@ -68,24 +72,31 @@ function App() {
 
 		})
 
-		socket.on("connect_error", (error) => {
+		socket?.on("connect_error", (error) => {
 			setserverStatus(false);
 		});
 
+		socket?.on("set_host", (data) => {
+			dispatch({
+				type: "SET_HOST"
+			})
+
+		})
+
 		// Event listener for disconnection
-		socket.on("disconnect", (reason) => {
-			setserverStatus(false);
-		});
+		// socket.on("disconnect", (reason) => {
+		// 	setserverStatus(false);
+		// });
 
 
 		return () => {
-			socket.off("opponent_joined");
-			socket.off("host_message_receive");
-			socket.off("player_message_receive");
-			socket.off("custom_error");
-			socket.off("UPDATE");
+			socket?.off("opponent_joined");
+			socket?.off("host_message_receive");
+			socket?.off("player_message_receive");
+			socket?.off("custom_error");
+			socket?.off("UPDATE");
 		};
-	}, [dispatch, state.isHost]);
+	}, [dispatch, socket]);
 
 
 	const onClickInvite = () => {
@@ -95,10 +106,10 @@ function App() {
 	}
 
 	const onClickReset = () => {
-		dispatch({
-			type: "reset_game",
-			callback: sendHostMessage
-		});
+		// dispatch({
+		// 	type: "reset_game",
+		// 	callback: sendHostMessage
+		// });
 
 	}
 

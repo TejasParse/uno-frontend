@@ -1,5 +1,3 @@
-import socket from "../socket";
-
 export const colorScheme = {
     red: "#D72600",
     green: "#379711",
@@ -8,47 +6,6 @@ export const colorScheme = {
     black: "#000000"
 }
 
-export const sendHostMessage = (overrideData) => {
-
-
-    const { roomNo, isHost, current_turn, players, winners, direction, selectedIndexes, started, presentCard, messages } = overrideData;
-
-    if(isHost) {
-      console.log("Sending Message to everyone", overrideData);
-      socket.emit("host_message_send", {
-        data: {
-          players,
-          selectedIndexes: Array.from(selectedIndexes),
-          presentCard,
-          started,
-          current_turn,
-          direction,
-          winners,
-          messages
-        },
-        room: roomNo
-      });
-    }
-  }
-
-export const sendPlayerUpdate = (overrideData) => {
-
-  const { roomNo, current_turn, players, winners, direction, selectedIndexes, presentCard, messages } = overrideData;
-
-  socket.emit("player_message_send", {
-    data: {
-      players,
-      selectedIndexes: Array.from(selectedIndexes),
-      presentCard,
-      current_turn,
-      direction,
-      winners,
-      messages
-    },
-    room: roomNo
-  });
-
-}
 
 export const isValid = (playingCard, currentCard) => {
 

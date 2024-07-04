@@ -1,7 +1,7 @@
 import React from 'react'
 import { colorScheme } from './shared'
 import { useGameState } from '../context/GameStateContext';
-import { sendPlayerUpdate, isValid } from './shared';
+import { isValid } from './shared';
 import { motion } from 'framer-motion';
 
 const cards = require("../context/cards.json");
@@ -35,13 +35,13 @@ function DisplayCard({ presentCard, className="", cardNo }) {
             //     callback: sendHostMessage
             //   });
 
-            dispatch({
-                type: "play_card",
-                payload: {
-                    cardNo: cardNo
-                },
-                callback: sendPlayerUpdate
-            })
+            // dispatch({
+            //     type: "play_card",
+            //     payload: {
+            //         cardNo: cardNo
+            //     },
+            //     callback: sendPlayerUpdate
+            // })
 
         }
 

@@ -131,6 +131,16 @@ const gameReducer = (state, action) => {
 
 			return newState3;
 
+		case "SET_HOST":
+
+			let newState4 = {
+				...state,
+				isHost: 1
+			};
+			// console.log(newState3, "This is new State");
+
+			return newState4;
+
 		default:
 			return state;
 	}

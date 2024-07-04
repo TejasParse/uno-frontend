@@ -4,9 +4,11 @@ import { sendHostMessage } from '../../shared/shared';
 import DisplayCard from '../../shared/DisplayCard';
 import { motion } from "framer-motion"
 import Chatbox from './Chatbox';
-import socket from '../../socket';
+import { useSocket } from '../../context/SocketContext';
 
 const Player = () => {
+
+  const socket = useSocket();
 
   const { state, dispatch } = useGameState();
 
@@ -15,7 +17,7 @@ const Player = () => {
 
   const startGame = () => {
 
-    socket.emit("start_game", {
+    socket?.emit("start_game", {
       roomNo: state.roomNo
     })
     // dispatch({
