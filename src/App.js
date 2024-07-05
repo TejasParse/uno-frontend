@@ -106,6 +106,10 @@ function App() {
 	}
 
 	const onClickReset = () => {
+
+		socket?.emit("reset_game", {
+			roomNo: state.roomNo
+		})
 		// dispatch({
 		// 	type: "reset_game",
 		// 	callback: sendHostMessage

@@ -3,10 +3,12 @@ import { colorScheme } from './shared'
 import { useGameState } from '../context/GameStateContext';
 import { isValid } from './shared';
 import { motion } from 'framer-motion';
-
+import { useSocket } from '../context/SocketContext';
 const cards = require("../context/cards.json");
 
-function DisplayCard({ presentCard, className="", cardNo }) {
+function DisplayCard({ presentCard, className = "", cardNo }) {
+
+    const socket = useSocket();
 
     const { state, dispatch } = useGameState();
     const userDetails = state.userDetails
@@ -18,13 +20,17 @@ function DisplayCard({ presentCard, className="", cardNo }) {
 
     const handleOnClick = () => {
 
-        if(!validPlay) {
+        if (!validPlay) {
             return;
         }
 
-        if(isActivePlayer) {
+        if (isActivePlayer) {
 
             // console.log(presentCard, cardNo);
+
+            socket?.emit("play_card", {
+                cardNo: cardNo
+            })
 
             // dispatch({
             //     type: "player_joined",
@@ -54,15 +60,15 @@ function DisplayCard({ presentCard, className="", cardNo }) {
             {
                 cursor: isActivePlayer ? (validPlay ? "pointer" : "not-allowed") : "not-allowed"
             }
-            
+
         }
-        whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)" }}
-        transition={{
-            bounceDamping: 1, bounceStiffness: 100,
-            duration: 0.1
-          }}
-          whileTap={{ scale: 0.95 }}
-    
+            whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)" }}
+            transition={{
+                bounceDamping: 1, bounceStiffness: 100,
+                duration: 0.1
+            }}
+            whileTap={{ scale: 0.95 }}
+
         >
             <div className={`p-2 rounded-2xl`} style={{ backgroundColor: colorScheme[presentCard.color] }}>
                 <div className={`text-xl`}>{presentCard.display_text}</div>
