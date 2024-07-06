@@ -62,7 +62,10 @@ export function decrypt(encryptedText) {
 export const getInviteLink = (roomNo) => {
   const separator = process.env.REACT_APP_SECRET_KEY;
 
-  const urlWithQueryParam = window.location.href + `?inviteQ=${roomNo}`;
+  const url = new URL(window.location.href);
+const domain = url.origin;
+
+  const urlWithQueryParam = domain + `?inviteQ=${roomNo}`;
 
   console.log("Invite URL= ", urlWithQueryParam);
   navigator.clipboard.writeText(urlWithQueryParam)
