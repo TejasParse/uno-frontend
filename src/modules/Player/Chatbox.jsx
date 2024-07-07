@@ -7,7 +7,7 @@ import { useSocket } from '../../context/SocketContext';
 const Chatbox = () => {
     const socket = useSocket();
 
-    const { state, dispatch } = useGameState();
+    const { state } = useGameState();
 
     const [message, setMessage] = useState('');
 

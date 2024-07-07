@@ -4,7 +4,6 @@ import { useGameState } from "../../context/GameStateContext";
 
 import { useSocket } from "../../context/SocketContext";
 
-import { decrypt } from "../../shared/shared";
 
 import { motion } from "framer-motion"
 
@@ -25,7 +24,6 @@ const RoomSetup = ({ serverStatus }) => {
   }, [])
 
   const [room, setRoom] = useState("");
-  const [existingPlayers, setExistingPlayers] = useState([]);
   const [newRoom, setNewRoom] = useState("");
   const [name, setName] = useState("");
   const { dispatch } = useGameState();

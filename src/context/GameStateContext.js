@@ -2,8 +2,6 @@
 
 import React, { createContext, useReducer, useContext } from "react";
 
-const cards = require('./cards.json');
-
 const initialState = {
 	isHost: 0,
 

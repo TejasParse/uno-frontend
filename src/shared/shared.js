@@ -60,7 +60,6 @@ export function decrypt(encryptedText) {
 }
 
 export const getInviteLink = (roomNo) => {
-  const separator = process.env.REACT_APP_SECRET_KEY;
 
   const url = new URL(window.location.href);
 const domain = url.origin;

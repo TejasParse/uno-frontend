@@ -10,7 +10,7 @@ function DisplayCard({ presentCard, className = "", cardNo }) {
 
     const socket = useSocket();
 
-    const { state, dispatch } = useGameState();
+    const { state } = useGameState();
     const userDetails = state.userDetails
     const currentPlayer = state.players[state.current_turn]
 

@@ -23,27 +23,6 @@ function App() {
 
 	useEffect(() => {
 
-		socket?.on("host_message_receive", (data) => {
-			console.log("Update Message Received from host", data);
-			if (!state.isHost) {
-				dispatch({
-					type: data.dispatch_type,
-					payload: data.data,
-				});
-			}
-		});
-
-		socket?.on("player_message_receive", (data) => {
-			console.log("Update Message Received from Player", data);
-
-			dispatch({
-				type: data.dispatch_type,
-				payload: data.data,
-			});
-
-		});
-
-
 		socket?.on("UPDATE", (data) => {
 			console.log("Update this data from admin", data);
 			// toast("Admin Update")
@@ -90,9 +69,8 @@ function App() {
 
 
 		return () => {
-			socket?.off("opponent_joined");
-			socket?.off("host_message_receive");
-			socket?.off("player_message_receive");
+
+			socket?.off("set_host");
 			socket?.off("custom_error");
 			socket?.off("UPDATE");
 		};

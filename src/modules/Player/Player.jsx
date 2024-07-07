@@ -1,6 +1,5 @@
 import React from 'react'
 import { useGameState } from '../../context/GameStateContext'
-import { sendHostMessage } from '../../shared/shared';
 import DisplayCard from '../../shared/DisplayCard';
 import { motion } from "framer-motion"
 import Chatbox from './Chatbox';
@@ -10,7 +9,7 @@ const Player = () => {
 
   const socket = useSocket();
 
-  const { state, dispatch } = useGameState();
+  const { state } = useGameState();
 
   const userDetails = state.userDetails
   const isHost = state.isHost;

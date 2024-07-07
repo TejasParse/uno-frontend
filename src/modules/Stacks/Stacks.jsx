@@ -9,7 +9,7 @@ const Stacks = () => {
 
   const socket = useSocket();
 
-  const { state, dispatch } = useGameState();
+  const { state } = useGameState();
 
   const currentPlayer = state.players[state.current_turn]
   const userDetails = state.userDetails
